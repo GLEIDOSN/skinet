@@ -2,6 +2,7 @@ using API.Extensions;
 using API.Middleware;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
+app.UseHttpMetrics();
+
+app.UseMetricServer();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -43,7 +48,7 @@ try
     await context.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
 }
-catch(Exception ex)
+catch (Exception ex)
 {
     logger.LogError(ex, "An error occured during migration");
 }
