@@ -21,7 +21,7 @@ export class ErroInterceptor implements HttpInterceptor {
         if (error) {
           if (error.status === 400) {
             if (error.error.errors) {
-              throw error.error();
+              throw error.error;
             } else {
               this.toastr.error(error.error.message, error.status.toString());
             }
