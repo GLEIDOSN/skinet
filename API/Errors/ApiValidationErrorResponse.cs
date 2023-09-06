@@ -1,8 +1,8 @@
 namespace API.Errors
 {
-    public class ValidationErrorResponse : ApiResponse
+    public class ApiValidationErrorResponse : ApiResponse
     {
-        public ValidationErrorResponse() : base(400)
+        public ApiValidationErrorResponse() : base(400)
         {
 
         }
