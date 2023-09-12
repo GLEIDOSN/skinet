@@ -56,7 +56,9 @@ namespace API.Controllers
         {
             var user = await _userManager.FindUserByClaimsPrincipleWithAddress(User);
 
-            return _mapper.Map<Address, AddressDto>(user.Address);
+            var userAddress = _mapper.Map<Address, AddressDto>(user.Address);
+
+            return userAddress;
         }
 
         [Authorize]
