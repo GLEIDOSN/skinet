@@ -14,7 +14,7 @@ namespace API.Controllers
 
         private readonly IPaymentService _paymentService;
         private readonly ILogger<PaymentsController> _logger;
-        private readonly IConfiguration _config;
+        
         public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger,
             IConfiguration config)
         {
