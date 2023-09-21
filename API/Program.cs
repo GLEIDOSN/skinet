@@ -1,3 +1,4 @@
+using System.Drawing;
 using API.Extensions;
 using API.Middleware;
 using Core.Entities.Identity;
@@ -5,6 +6,7 @@ using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,11 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseSwaggerDocumentation();
 
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Content")), RequestPath = "/Content"
+});
 
 app.UseHttpMetrics();
 
@@ -39,6 +46,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
